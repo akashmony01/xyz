@@ -1,0 +1,98 @@
+{% extends 'page.html' %}
+{% block title %}Dashboard - HPMS{% endblock %}
+
+{% block page-content %}
+
+    <section class="min-h-screen p-5">
+        <div class="block">
+           <div class="flex justify-between gap-4 border-b border-sky-700/25 pb-4">
+               <h1 class="text-3xl">
+                   Appointments
+               </h1>
+               <div class="flex items-center gap-4">
+                   <a href="{% url 'add_appointment' %}" class="block text-sky-700">
+                       Add
+                   </a>
+                   <a href="{% url 'appointment_list' %}" class="block text-sky-700">
+                       See All
+                   </a>
+               </div>
+           </div>
+           <div class="mt-5 flex flex-col gap-3">
+               {% for appointment in appointments %}
+                    <a href="{% url 'edit_appointment' appointment.pk %}" class="bg-gray-100 hover:bg-orange-300 px-5 py-4 rounded-md flex items-center justify-between gap-4 duration-300">
+                        <p class="block text-sky-700">
+                           Name: {{ appointment.patient.name }}
+                        </p>
+                        <p class="flex gap-3 items-center justify-center">
+                           <span class="block opacity-50 text-sm">
+                               - date: {{ appointment.date }}
+                           </span>
+                            <span class="block opacity-50 text-sm">
+                               - time: {{ appointment.time }}
+                           </span>
+                        </p>
+                    </a>
+                {% endfor %}
+           </div>
+       </div>
+        <div class="mt-10 block">
+           <div class="flex justify-between gap-4 border-b border-sky-700/25 pb-4">
+               <h1 class="text-3xl">
+                   Last added patients
+               </h1>
+               <div class="flex items-center gap-4">
+                   <a href="{% url 'add_patient' %}" class="block text-sky-700">
+                       Add
+                   </a>
+                   <a href="{% url 'patient_list' %}" class="block text-sky-700">
+                       See All
+                   </a>
+               </div>
+           </div>
+           <div class="mt-5 flex flex-col gap-3">
+               {% for patient in patients %}
+                    <a href="{% url 'edit_patient' patient.pk %}" class="bg-gray-100 hover:bg-orange-300 px-5 py-4 rounded-md flex items-center justify-between gap-4 duration-300">
+                        <p class="block text-sky-700">
+                           Name: {{ patient.name }}
+                        </p>
+                        <p class="block opacity-50 text-sm">
+                           - Added: {{ patient.created_at }}
+                        </p>
+                    </a>
+                {% endfor %}
+           </div>
+       </div>
+        <div class="mt-10 block">
+           <div class="flex justify-between gap-4 border-b border-sky-700/25 pb-4">
+               <h1 class="text-3xl">
+                   Recently added Doctors
+               </h1>
+               <div class="flex items-center gap-4">
+                   <a href="{% url 'add_doctor' %}" class="block text-sky-700">
+                       Add
+                   </a>
+                   <a href="{% url 'doctor_list' %}" class="block text-sky-700">
+                       See All
+                   </a>
+               </div>
+           </div>
+           <div class="mt-5 flex flex-col gap-3">
+               {% for doctor in doctors %}
+                    <a href="{% url 'edit_doctor' doctor.pk %}" class="bg-gray-100 hover:bg-orange-300 px-5 py-4 rounded-md flex items-center justify-between gap-4 duration-300">
+                        <p class="block text-sky-700">
+                            Name: {{ doctor.name }}
+                            <span class="text-sm opacity-50">
+                                ({{ doctor.specialization }})
+                            </span>
+                        </p>
+                        <p class="block opacity-50 text-sm">
+                           - Added: {{ doctor.created_at }}
+                        </p>
+                    </a>
+                {% endfor %}
+           </div>
+       </div>
+    </section>
+
+{% endblock %}

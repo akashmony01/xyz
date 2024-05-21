@@ -1,0 +1,55 @@
+<div class="container h-full overflow-y-auto flex flex-col justify-between gap-10 py-5">
+    <div class="block">
+        <a href="{% url 'dashboard' %}" class="block font-black text-5xl pb-5 border-b border-white/25">
+            HPMS
+        </a>
+        <ul class="py-5 flex flex-col gap-2">
+            <li>
+                <a href="{% url 'patient_list' %}" class="inline-block">
+                    All Patient
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'appointment_list' %}" class="inline-block">
+                    All Appointments
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'doctor_list' %}" class="inline-block">
+                    All Doctors
+                </a>
+            </li>
+            <li class="mt-2 pt-5 border-t border-white/25">
+                <a href="{% url 'add_patient' %}" class="inline-block">
+                    Add patient
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'add_appointment' %}" class="inline-block">
+                    Add Appointment
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'add_doctor' %}" class="inline-block">
+                    Add Doctors
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <ul class="mt-5 pt-5 border-t border-white/25 flex flex-col gap-2">
+        <li>
+            <a href="" class="inline-block">
+                Profile
+            </a>
+        </li>
+        <li>
+            <form action="{% url 'logout' %}" method="post">
+                {% csrf_token %}
+                <button type="subbmit" class="inline-block">
+                    Logout
+                </button>
+            </form>
+        </li>
+    </ul>
+</div>

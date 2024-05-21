@@ -1,0 +1,55 @@
+{% extends 'page.html' %}
+{% block title %}Dashboard - HPMS{% endblock %}
+
+{% block page-content %}
+
+    <section class="min-h-screen p-5">
+        <div class="flex justify-between gap-4 border-b border-sky-700/25 pb-4">
+           <h1 class="text-3xl">
+               Appointment List
+           </h1>
+           <a href="{% url 'add_patient' %}" class="block text-sky-700 font-bold">
+               Add Appointment
+           </a>
+       </div>
+        <ul class="mt-5 flex flex-col gap-3">
+            {% for appointment in appointments %}
+                <li class="bg-gray-100 hover:bg-orange-300 px-5 py-4 rounded-md flex items-center justify-between gap-4 duration-300">
+                    <a href="{% url 'edit_appointment' appointment.pk %}" class="flex items-center gap-4">
+                        <span class="block text-sky-700">
+                           Name: {{ appointment.patient.name }}
+                        </span>
+                        <span class="block opacity-50 text-sm">
+                           - date: {{ appointment.date }}
+                       </span>
+                        <span class="block opacity-50 text-sm">
+                           - time: {{ appointment.time }}
+                       </span>
+                    </a>
+
+                    <form id="deleteAptForm" method="post">
+                        {% csrf_token %}
+                        <button class="text-red-500 font-bold" onclick="confirmDelete({{ appointment.pk }})">
+                            Delete
+                        </button>
+                    </form>
+                </li>
+            {% endfor %}
+       </ul>
+        <div class="mt-10">
+            <a href="{% url 'add_patient' %}" class="block text-sky-700 font-bold">
+               Add Patients
+           </a>
+        </div>
+    </section>
+
+    <script>
+        function confirmDelete(aptId) {
+            if (confirm('Are you sure you want to delete this patient?')) {
+                const form = document.getElementById('deleteAptForm');
+                form.action = `/appointment/delete/${aptId}/`;
+                form.submit();
+            }
+        }
+    </script>
+{% endblock %}

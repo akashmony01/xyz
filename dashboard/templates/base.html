@@ -1,0 +1,101 @@
+<!-- templates/myapp/index.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}HPMS{% endblock %}</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {},
+                container: {
+                    center: true,
+                    padding: {
+                        DEFAULT: "20px",
+                        sm: "20px",
+                        md: "20px",
+                        lg: "20px",
+                        xl: "20px",
+                    },
+                },
+            },
+            plugins: [
+                function ({ addComponents }) {
+                    addComponents({
+                        '.container': {
+                            maxWidth: '100%',
+                            '@screen sm': {
+                                maxWidth: '100%',
+                            },
+                            '@screen md': {
+                                maxWidth: '100%',
+                            },
+                            '@screen lg': {
+                                maxWidth: '100%',
+                            },
+                            '@screen xl': {
+                                maxWidth: '1200px',
+                            },
+                        }
+                    })
+                },
+            ],
+        }
+    </script>
+
+    <style type="text/tailwindcss">
+        @layer base {
+            html,
+            body {
+                @apply text-sky-700;
+            }
+            a,
+            .btn,
+            .button,
+            button {
+                @apply hover:opacity-80 duration-300;
+            }
+
+            input,
+            select,
+            textarea {
+                @apply outline-none focus:outline-none duration-300;
+            }
+
+            .cForm label {
+                @apply inline-block mb-2 font-semibold cursor-pointer;
+            }
+
+            .cForm input,
+            .cForm textarea,
+            .cForm select {
+                @apply bg-transparent w-full px-5 py-3 rounded-md border border-sky-700;
+            }
+
+            .cForm input[type='checkbox'],
+            .cForm input[type='radio']{
+                @apply inline-block ml-2 w-4 px-3;
+            }
+
+            .cForm button[type="submit"] {
+                @apply mt-2 px-8 py-3 border border-sky-700 rounded-md text-sky-700 hover:bg-sky-700 hover:text-white;
+            }
+
+            .cForm .errorlist{
+                @apply text-red-500;
+            }
+        }
+    </style>
+
+</head>
+<body>
+
+    {% block content %}{% endblock %}
+
+</body>
+</html>

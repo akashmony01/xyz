@@ -1,0 +1,29 @@
+{% extends 'page.html' %}
+{% block title %}Dashboard - HPMS{% endblock %}
+
+{% block page-content %}
+
+    <section class="min-h-screen p-5">
+        <div class="flex justify-between gap-4 border-b border-sky-700/25 pb-4">
+           <h1 class="text-3xl">
+               {% if form.instance.pk %}
+                Edit Patient Info
+                {% else %}
+                    Add Patient Info
+                {% endif %}
+           </h1>
+           <a href="{% url 'patient_list' %}" class="block text-sky-700 font-bold">
+               Patient List
+           </a>
+       </div>
+        <form method="post" class="mt-10 cForm container max-w-screen-md flex flex-col gap-6">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <div class="w-auto">
+                <button type="submit">Save</button>
+            </div>
+        </form>
+    </section>
+
+
+{% endblock %}

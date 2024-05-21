@@ -1,0 +1,55 @@
+{% extends 'page.html' %}
+{% block title %}Dashboard - HPMS{% endblock %}
+
+{% block page-content %}
+
+    <section class="min-h-screen p-5">
+        <div class="flex justify-between gap-4 border-b border-sky-700/25 pb-4">
+           <h1 class="text-3xl">
+               Doctor List
+           </h1>
+           <a href="{% url 'add_doctor' %}" class="block text-sky-700 font-bold">
+               Add Doctor
+           </a>
+       </div>
+        <ul class="mt-5 flex flex-col gap-3">
+            {% for doctor in doctors %}
+                <li class="bg-gray-100 hover:bg-orange-300 px-5 py-4 rounded-md flex items-center justify-between gap-4 duration-300">
+                    <a href="{% url 'edit_doctor' doctor.pk %}" class="flex items-center gap-4">
+                        <span class="block text-sky-700">
+                            Name: {{ doctor.name }}
+                            <span class="text-sm opacity-50">
+                                {{ doctor.specialization }}
+                            </span>
+                        </span>
+                        <span class="block opacity-50 text-sm">
+                           - Added: {{ doctor.speciality }}
+                       </span>
+                    </a>
+
+                    <form id="deleteDoctorForm" method="post">
+                        {% csrf_token %}
+                        <button class="text-red-500 font-bold" onclick="confirmDelete({{ doctor.pk }})">
+                            Delete
+                        </button>
+                    </form>
+                </li>
+            {% endfor %}
+       </ul>
+        <div class="mt-10">
+            <a href="{% url 'add_doctor' %}" class="block text-sky-700 font-bold">
+               Add Doctor
+           </a>
+        </div>
+    </section>
+
+    <script>
+        function confirmDelete(doctorId) {
+            if (confirm('Are you sure you want to delete this patient?')) {
+                const form = document.getElementById('deleteDoctorForm');
+                form.action = `/doctor/delete/${doctorId}/`;
+                form.submit();
+            }
+        }
+    </script>
+{% endblock %}

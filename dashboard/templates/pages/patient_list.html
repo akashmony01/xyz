@@ -1,0 +1,52 @@
+{% extends 'page.html' %}
+{% block title %}Dashboard - HPMS{% endblock %}
+
+{% block page-content %}
+
+    <section class="min-h-screen p-5">
+        <div class="flex justify-between gap-4 border-b border-sky-700/25 pb-4">
+           <h1 class="text-3xl">
+               Patients List
+           </h1>
+           <a href="{% url 'add_patient' %}" class="block text-sky-700 font-bold">
+               Add Patients
+           </a>
+       </div>
+        <ul class="mt-5 flex flex-col gap-3">
+            {% for patient in patients %}
+                <li class="bg-gray-100 hover:bg-orange-300 px-5 py-4 rounded-md flex items-center justify-between gap-4 duration-300">
+                    <a href="{% url 'edit_patient' patient.pk %}" class="flex items-center gap-4">
+                        <span class="block text-sky-700">
+                           Name: {{ patient.name }}
+                        </span>
+                        <span class="block opacity-50 text-sm">
+                           - Added: {{ patient.created_at }}
+                       </span>
+                    </a>
+
+                    <form id="deletePatientForm" method="post">
+                        {% csrf_token %}
+                        <button class="text-red-500 font-bold" onclick="confirmDelete({{ patient.pk }})">
+                            Delete
+                        </button>
+                    </form>
+                </li>
+            {% endfor %}
+       </ul>
+        <div class="mt-10">
+            <a href="{% url 'add_patient' %}" class="block text-sky-700 font-bold">
+               Add Patients
+           </a>
+        </div>
+    </section>
+
+    <script>
+        function confirmDelete(patientId) {
+            if (confirm('Are you sure you want to delete this patient?')) {
+                const form = document.getElementById('deletePatientForm');
+                form.action = `/patients/delete/${patientId}/`;
+                form.submit();
+            }
+        }
+    </script>
+{% endblock %}

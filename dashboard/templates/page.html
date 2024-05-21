@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<header
+    class="fixed top-0 left-0 bottom-0 w-60 bg-sky-700 text-orange-300"
+>
+    {% include 'components/header.html' %}
+</header>
+
+<main class="min-h-screen pl-60">
+    {% block page-content %}{% endblock %}
+</main>
+
+{% endblock %}
